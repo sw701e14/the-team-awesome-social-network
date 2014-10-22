@@ -11,6 +11,14 @@ namespace SocialNetworks
         private int size;
         private double[,] data;
 
+        public Matrix(int size)
+        {
+            if (size <= 0)
+                throw new ArgumentOutOfRangeException("size");
+
+            this.size = size;
+            this.data = new double[size, size];
+        }
         public Matrix(double[,] data)
         {
             if (data.GetLength(0) != data.GetLength(1))
@@ -24,9 +32,34 @@ namespace SocialNetworks
                     this.data[x, y] = data[x, y];
         }
 
+        public static Matrix operator -(Matrix a, Matrix b)
+        {
+            if (a.size != b.size)
+                throw new ArgumentException("Matrices must be of same size!");
+
+            Matrix c = new Matrix(a.size);
+            for (int y = 0; y < a.size; y++)
+                for (int x = 0; x < a.size; x++)
+                    c.data[x, y] = a.data[x, y] - b.data[x, y];
+
+            return c;
+        }
+        public static Matrix operator +(Matrix a, Matrix b)
+        {
+            if (a.size != b.size)
+                throw new ArgumentException("Matrices must be of same size!");
+
+            Matrix c = new Matrix(a.size);
+            for (int y = 0; y < a.size; y++)
+                for (int x = 0; x < a.size; x++)
+                    c.data[x, y] = a.data[x, y] + b.data[x, y];
+
+            return c;
+        }
+
         public static Matrix CreateIdentityMatrix(int size)
         {
-            Matrix matrix = new Matrix() { data = new double[size, size], size = size };
+            Matrix matrix = new Matrix(size);
             for (int i = 0; i < size; i++)
                 matrix.data[i, i] = 1.0;
             return matrix;
