@@ -73,6 +73,12 @@ namespace SocialNetworks
             {
                 return this.friends.GetEnumerator();
             }
+
+            public int Length
+            {
+                get { return friends.Count; }
+            }
+            
         }
 
         
