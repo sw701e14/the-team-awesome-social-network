@@ -120,6 +120,8 @@ namespace SocialNetworks
             {
                 get { return friends.Count; }
             }
+
+            public Person this[int index] { get { return this.friends[index]; } }
             
         }
 
