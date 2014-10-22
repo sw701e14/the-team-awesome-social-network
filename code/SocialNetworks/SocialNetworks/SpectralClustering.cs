@@ -17,6 +17,19 @@ namespace SocialNetworks
             return identityMatrix;
         }
 
+        private double[,] createAdjacencyMatrix(Person[] persons)
+        {
+            double[,] adjacencyMatrix = new double[persons.Length, persons.Length];
+            for (int i = 0; i < adjacencyMatrix.Length; i++)
+                for (int j = 0; j < persons[i].Friends.Length; j++)
+                {
+                    int friendIndex = persons.BinarySearch(persons[i].Friends[j], (a, b) => a.Name.CompareTo(b.Name));
+                    adjacencyMatrix[i, friendIndex] = 1;
+                }
+            return adjacencyMatrix;
+                
+        }
+
 
 
     }
