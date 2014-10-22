@@ -18,12 +18,17 @@ namespace SocialNetworks
             for (int i = 0; i < inp.Length; i += 5)
                 persons.Add(getPersonAndFriendnames(inp, i));
 
+            persons.Sort((x, y) => x.Item1.name.CompareTo(y.Item1.name));
+
             for (int i = 0; i < persons.Count; i++)
             {
                 for (int j = 0; j < persons[i].Item2.Count; j++)
                 {
                     string findName = persons[i].Item2[j];
-                    persons[i].Item1.friends.Add(persons.Find(t => t.Item1.name == findName).Item1);
+                    int index = persons.BinarySearch(findName, (x, y) => x.CompareTo(y), x => x.Item1.name);
+                    if (index < 0)
+                        throw new ArgumentException("Person " + findName + " not found!");
+                    persons[i].Item1.friends.Add(persons[i].Item1);
                 }
                 yield return persons[i].Item1;
             }
@@ -41,7 +46,7 @@ namespace SocialNetworks
         }
         private static string[] getFriends(string line)
         {
-            return getContent(line).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return getContent(line).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
 
