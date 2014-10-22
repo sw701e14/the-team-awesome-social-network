@@ -77,5 +77,12 @@ namespace SocialNetworks
 
             return new Matrix(adjacencyMatrix);
         }
+        public Matrix CreateDegreeMatrix(Person[] persons)
+        {
+            Matrix m = new Matrix(persons.Length);
+            for (int i = 0; i < persons.Length; i++)
+                m.data[i, i] = persons[i].Friends.Length;
+            return m;
+        }
     }
 }
