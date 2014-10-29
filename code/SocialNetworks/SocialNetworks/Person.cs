@@ -86,7 +86,10 @@ namespace SocialNetworks
             get { return friends; }
         }
 
-
+        public override string ToString()
+        {
+            return name;
+        }
 
         public class PersonCollection : IEnumerable<Person>
         {
