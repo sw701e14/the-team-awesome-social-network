@@ -57,6 +57,15 @@ namespace SocialNetworks
             return c;
         }
 
+        public static implicit operator double[,] (Matrix m)
+        {
+            return m.Data;
+        }
+        public double[,] Data
+        {
+            get { return data.Clone() as double[,]; }
+        }
+
         public static Matrix CreateIdentityMatrix(int size)
         {
             Matrix matrix = new Matrix(size);
@@ -65,10 +74,10 @@ namespace SocialNetworks
             return matrix;
         }
 
-        public Matrix CreateAdjacencyMatrix(Person[] persons)
+        public static Matrix CreateAdjacencyMatrix(Person[] persons)
         {
             double[,] adjacencyMatrix = new double[persons.Length, persons.Length];
-            for (int i = 0; i < adjacencyMatrix.Length; i++)
+            for (int i = 0; i < persons.Length; i++)
                 for (int j = 0; j < persons[i].Friends.Length; j++)
                 {
                     int friendIndex = persons.BinarySearch(persons[i].Friends[j], (a, b) => a.Name.CompareTo(b.Name));
@@ -77,7 +86,7 @@ namespace SocialNetworks
 
             return new Matrix(adjacencyMatrix);
         }
-        public Matrix CreateDegreeMatrix(Person[] persons)
+        public static Matrix CreateDegreeMatrix(Person[] persons)
         {
             Matrix m = new Matrix(persons.Length);
             for (int i = 0; i < persons.Length; i++)
