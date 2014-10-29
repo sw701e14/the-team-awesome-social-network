@@ -28,7 +28,7 @@ namespace SocialNetworks
                     int index = persons.BinarySearch(findName, (x, y) => x.CompareTo(y), x => x.Item1.name);
                     if (index < 0)
                         throw new ArgumentException("Person " + findName + " not found!");
-                    persons[i].Item1.friends.Add(persons[i].Item1);
+                    persons[i].Item1.friends.Add(persons[index].Item1);
                 }
                 yield return persons[i].Item1;
             }
