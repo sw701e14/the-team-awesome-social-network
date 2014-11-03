@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace SocialNetworks
 {
+    public enum Score
+    {
+        Negative,
+        Neutral,
+        Positive
+    }
+
     public class NaiveBayes
     {
     }

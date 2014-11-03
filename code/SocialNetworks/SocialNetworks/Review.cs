@@ -67,7 +67,13 @@ namespace SocialNetworks
         {
             get { return score; }
         }
-        
+
+        private string content;
+
+        public string Content
+        {
+            get { return summary + " " + text; }
+        }
         
     }
 }
