@@ -11,7 +11,6 @@ namespace SocialNetworks
         //Taken from slides
         private static string[] negationWords = {"never", "no", "nothing", "nowhere", "noone", "none", "not", "havent", "hasnt", "hadnt", "cant", "couldnt", "shouldnt", "wont", "wouldnt", "dont", "doesnt", "didnt", "isnt", "arent", "aint"};
         private static char[] punctuation = { '.', ':', ';', '!', '?' };
-        private static char[] removals = { '.', ':', ';', '!', '?' };
         private static string negationIdentifier = "_NEG";
 
         public static string Tokenize(string reviewContent)
@@ -34,18 +33,11 @@ namespace SocialNetworks
             return reviews.Select(x => x.Content);
         }
 
-        private static string stripString(this string text)
-        {
-            foreach (var removalChar in removals)
-                text.Replace(removalChar.ToString(), "");
-            return text;
-        }
-
         private static string negateHandler(string text)
         {
             string result = "";
             bool negate = false;
-            foreach (var line in text.stripString().Split(punctuation))
+            foreach (var line in text.Split(punctuation))
             {
                 string[] words = line.Split(' ');
                 for(int i = 0; i< words.Length; i++)
