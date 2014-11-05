@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace SocialNetworks
 {
+    public enum Score
+    {
+        Negative,
+        Neutral,
+        Positive
+    }
+
     public class Review
     {
-        public Review(string productId, double score, string summary, string text)
+        public Review(string productId, string score, string summary, string text)
         {
             this.productId = productId;
-            this.score = score;
+            this.score = getScore(score);
             this.text = text;
             this.summary = summary;
         }
@@ -37,8 +44,25 @@ namespace SocialNetworks
 
         private static Review createReview(string[] review)
         {
-            return new Review(review[0].Split(':')[1], double.Parse(review[4].Split(':')[1].Trim(),System.Globalization.CultureInfo.InvariantCulture), review[6].Split(':')[1], review[7].Split(':')[1]);
-        }        
+            return new Review(review[0].Split(':')[1], review[4].Split(':')[1], review[6].Split(':')[1], review[7].Split(':')[1]);
+        }
+
+        private static Score getScore(string score)
+        {
+            switch (score)
+            {
+                case "1.0":
+                case "2.0":
+                    return Score.Negative;
+                case "3.0":
+                    return Score.Neutral;
+                case "4.0":
+                case "5.0":
+                    return Score.Positive;
+                default:
+                    throw new ArgumentOutOfRangeException("The score has to be one of the following values: 1.0, 2.0, 3.0, 4.0, 5.0.");
+            }
+        }
 
         private string productId;
 
@@ -61,9 +85,9 @@ namespace SocialNetworks
             get { return summary; }
         }
 
-        private double score;
+        private Score score;
 
-        public double Score
+        public Score Score
         {
             get { return score; }
         }
@@ -72,7 +96,7 @@ namespace SocialNetworks
 
         public string Content
         {
-            get { return summary + " " + text; }
+            get { return Tokenizer.Tokenize(summary + " " + text); }
         }
         
     }

@@ -14,10 +14,9 @@ namespace SocialNetworks
         private static char[] removals = { '.', ':', ';', '!', '?' };
         private static string negationIdentifier = "_NEG";
 
-        public string[] Tokenize(Review[] reviews)
+        public static string Tokenize(string reviewContent)
         {
-            string[] r = getReviews(reviews).ToArray();
-            throw new NotImplementedException();
+            return negateHandler(reviewContent);
         }
 
         public static IEnumerable<string> GetAllWords(Review[] reviews)
@@ -32,8 +31,7 @@ namespace SocialNetworks
 
         private static IEnumerable<string> getReviews(Review[] reviews)
         {
-            foreach (var r in reviews)
-                yield return r.Content;
+            return reviews.Select(x => x.Content);
         }
 
         private static string stripString(this string text)
@@ -43,7 +41,7 @@ namespace SocialNetworks
             return text;
         }
 
-        private string negateHandler(string text)
+        private static string negateHandler(string text)
         {
             string result = "";
             bool negate = false;
@@ -61,5 +59,16 @@ namespace SocialNetworks
             }
             return result;
         }
+
+        public static double Product(this IEnumerable<double> collection)
+        {
+            double res = 1;
+
+            foreach (var item in collection)
+                res *= item;
+
+            return res;
+        }
+
     }
 }
