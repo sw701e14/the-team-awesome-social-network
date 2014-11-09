@@ -1,0 +1,59 @@
+\include{setup/preamble}
+
+\begin{document}
+%Front page
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{center}
+
+\HRule \\[0.5cm]
+\textsc{ \Huge Mini Project 1 - A calendar language - Some calendar functions}\\
+
+\HRule \\[3cm]
+
+\textsc{\Large Name: Bruno Thalmann} \\[1cm]
+\textsc{\Large Student-number: 20112696} \\[1cm]
+\textsc{\Large AAU-email: bthalm11@student.aau.dk} \\[2cm]
+
+%Insert picture HERE!!!
+%\includegraphics[width=.8\textwidth]{whalle}
+
+\vfill
+{\Large Programming Paradigms}
+\\ ~\\
+{\large Autmn Semester 2014}
+
+\end{center}
+\end{titlepage}
+
+
+%\clearpage
+
+%\input{frontmatter/titelblad.tex}
+%\clearpage
+
+
+%Table of content
+\pdfbookmark{\contentsname}{toc}
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\clearpage
+
+\pagenumbering{arabic}
+
+
+\clearpage
+
+% PART ******************************
+
+\chapter{Sentiment Analysis}
+\input{indhold/tokenization}
+\input{indhold/classsification}
+%\input{undhold/refinedFeatureSelection}
+
+\bibliography{bibliography}
+\bibliographystyle{plain}
+\label{LastPage}
+\end{document}
