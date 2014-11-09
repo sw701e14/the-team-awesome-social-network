@@ -22,6 +22,7 @@ namespace SocialNetworks
             this.score = getScore(score);
             this.text = text;
             this.summary = summary;
+            this.content = Tokenizer.Tokenize(summary + " " + text);
         }
 
         public static IEnumerable<Review> ParseFile(string fileName)
@@ -49,7 +50,7 @@ namespace SocialNetworks
 
         private static Score getScore(string score)
         {
-            switch (score)
+            switch (score.Trim())
             {
                 case "1.0":
                 case "2.0":
@@ -92,9 +93,11 @@ namespace SocialNetworks
             get { return score; }
         }
 
+        private string content;
+
         public string Content
         {
-            get { return Tokenizer.Tokenize(summary + " " + text); }
+            get { return content; }
         }
         
     }
