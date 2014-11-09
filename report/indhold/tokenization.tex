@@ -14,3 +14,23 @@ We have chosen to use all words and our handling of negation can be seen in the 
 \subsubsection{Handling of Negation}
 Is used for identifying when a part of a sentence is negative.
 Fx 'I didn't like this product vs I really like this product'.
+Our strategy of handling negation is using the KISS principle\footnote{Das and Chen 2001; Pang, Lee \& Vaithyanathan 2002}.
+The idea is to append '\_NEG' to any word appearing between a negation and a punctuation mark.
+The negation words we have used are the following:
+\begin{center}
+ \it{never, no, nothing, nowhere, noone, none, not, havent, hasnt, hadnt, cant, couldnt, shouldnt, wont, wouldnt, dont, doesnt, didnt, isnt, arent, aint}
+\end{center}
+these are taken directly from the KISS principle.
+Our punctuation are also from there and are:
+\begin{center}
+ \it{., :, ;, !, ?}
+\end{center}
+
+\paragraph{An example} of a string that has been negated. Before:
+\begin{center}
+ i don't think i will enjoy it: it might be too spicy.
+\end{center}
+After:
+\begin{center}
+ i don't think\_NEG i\_NEG will\_NEG enjoy\_NEG it\_NEG: it might be too spicy.
+\end{center}
