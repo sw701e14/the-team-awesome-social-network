@@ -109,6 +109,15 @@ namespace SocialNetworks
                 this.friends.Remove(person);
             }
 
+            public bool Contains(Person person)
+            {
+                return friends.Contains(person);
+            }
+            public bool ContainsB(Person person)
+            {
+                return friends.BinarySearch(person, (x, y) => x.name.CompareTo(y.name)) >= 0;
+            }
+
             public IEnumerator<Person> GetEnumerator()
             {
                 return this.friends.GetEnumerator();
@@ -125,7 +134,7 @@ namespace SocialNetworks
             }
 
             public Person this[int index] { get { return this.friends[index]; } }
-            
+
         }
 
 
