@@ -1,5 +1,8 @@
 The classification is about learning from a set of data.
-When the learned model then is given some new data it should give back a classification of te given data based on the learned model.
+When the learned model then is given some new data it should give back a classification of the given data based on the learned model.
+The classification in this context uses a score from 1 to 5, where it groups together 1 and 2, 3, 4 and 5.
 \subsection{Naive Bayes Classifier}
-Based on bayes theorem(who would have thought that..):
-$p(C|X) = p(X|C)p(C)/p(X)$.
+For calculating the score we used Naive Bayes.
+Starting of with calculating the probabilities for positive(4-5), neutral(3) and negative(1-2).
+This we used for calculating the score for each of the classifiers.
+When evaluating a review its score gets calculated and the classifier with the highest score will be the prediction.
