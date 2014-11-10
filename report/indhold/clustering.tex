@@ -12,7 +12,31 @@ Instead it refers to the minimal change with respect to maintaining balance betw
 
 \section{Clusters}
 The network is clustered recursively, by first defining the entire dataset as a cluster and then iteratively splitting the largest (in terms of number of people) cluster in two.
+This process is repeated until the split results in one cluster with one member and another with a relatively larger number of members.
 
+The end-result is that we have four clusters (see \cref{fig:cluster}) of sizes 683, 1167, 1750 and 619.
+The clusters are represented in the same order in the figure, from top-left to bottom-right.
+Their hierarchical relation is defined by the order of the splits.
+The order of these split is represented in the figure as numbers and lines.
+
+In the first and third cluster we see that one person is quite well-connected with the remaining cluster.
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.6\textwidth}
+\includegraphics[width=\linewidth]{graphics/pre-cluster}
+\caption{Before clustering}
+\label{fig:pre-cluster}
+\end{subfigure}\\
+
+\begin{subfigure}[b]{0.6\textwidth}
+\includegraphics[width=\linewidth]{graphics/cluster}
+\caption{After clustering}
+\label{fig:cluster}
+\end{subfigure}
+
+\caption{Binary adjacency matrices, showing the friendship relations}
+\end{figure}
 
 %What were the results?
 %Argue for you choice of algorithm or describe what you would have done, if you have had more time.
