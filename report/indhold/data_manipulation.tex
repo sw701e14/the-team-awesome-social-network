@@ -1,0 +1,12 @@
+\section{Data Manipulation}
+\paragraph{The data} provided was a big chunk of files where each file represents a movie.
+Each file consists of 'userId, rating' pairs on each line.
+There was also provided a probe file for testing the result.
+The probe file consists of movieId's followed by a list of userId's.
+
+\paragraph{Parsing}
+For this section we wrote a parser to get the data provided.
+One of the challenges was to complete the probe data by searching the movies and find the userId's rating.
+Their rating was than saved in the probe file and removed in the movie file where it was found.
+This was so we had some data for testing.
+After manipulating the data it was saved to files.
