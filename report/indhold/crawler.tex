@@ -11,15 +11,71 @@ We have used this description of the webcrawler from the slides to develop our c
 	We use threads to speed up the process.
 	
 	\item \textbf{Parse page}
-	\begin{enumerate}
-		\item Extract text and pass to indexer
-		\item Check if URL has content already seen. If not:\\
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item \textbf{Extract text and pass to indexer}
+		\item \textbf{Check if URL has content already seen. If not:}\\
 		To check if a URL has content already seen we used hashed shingles(jaccard similarity).
 		We did also implement sketches but calculating them was very slow.
 		
-		\begin{enumerate}
-			\item Add to index
-			\item Extract “link-to” URLs and add to frontier queue
+		\begin{enumerate}[label=\textbf{\roman*.}]
+			\item \textbf{Add to index}\\
+			We have chose just to remove all html tags and get the plain text.
+			We could have removed or adjusted the following:
+			\begin{itemize}
+			\item Apostrophes
+			\item Hyphens
+			\item Places like eg. Aalborg East - one or two token?
+			\item Numbers and Dates
+			\item No white space between words(Asia)
+			\item Normalization of words: eg. USA, U.S.A., United States of America
+			\item Stop words
+			\item Case Folding (eg. everything lower case)
+			\item Thesauri and soundex (eg: car = automobile color = colour)
+			\end{itemize}
+			Of these only stop words and lower casing have been used in the crawler.
+			
+			The content including html tags are cached locally.
+			This allows us to re-use the content of each page for different tasks (shingling, link-extraction etc.).
+			Pages are cached in files (one per page) and can currently only be removed by deleting these files.
+			A crawler that is required to run for a longer period of time should manage this cache accordingly.
+			
+			\item\textbf{ Extract “link-to” URLs and add to frontier queue}
+			When an URL has new content or is not already in the index it get added.
+			The index basically consists of a List of stems where each stem has a linked list of document id's where they occur.
+			When an URL gets added to the index the stemmer extracts the stems from the text extracted from the URL.
+			The stems get added to the index or if they are already in the index the document id gets added to the linked list.
+			We have used an open-source stemmer by Leif Azzopardi:
+			\begin{center}
+			\url{http://tartarus.org/martin/PorterStemmer/}
+			\end{center}
+			
 		\end{enumerate}
+	\end{enumerate}
+	
+	\item \textbf{For each extracted URL}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item \textbf{Normalize URL}\\
+		For the URL normalization, we have the following cases:
+		\begin{itemize}
+		\item \texttt{//file.htm} $\rightarrow$ \texttt{http://file.htm}
+		\item \texttt{/file.htm} $\rightarrow$ \texttt{http://domain.com/file.htm}
+		\item \texttt{file.htm} $\rightarrow$ \texttt{http://domain.com/something/file.htm}
+		\end{itemize}
+		Asides from this we have also fixed casing and escaping of special characters as per \url{http://en.wikipedia.org/wiki/URL_normalization}.
+		
+		\item \textbf{Check that it passes certain URL filter tests. E.g.:}
+		\begin{enumerate}[label=\textbf{\roman*.}]
+			\item \textbf{Focused crawl: only crawl .dk}\\
+			We have implemented a collection of filters that can be combined using and/or operators (\texttt{\&} and \texttt{|}) allowing for the construction of complex filters.
+			One such filter checks the domain of an URL whereas another checks the extension of the content pointed to by the URL.
+			\item\textbf{Obey robots.txt (freshness caveat)}\\
+			We fetch the robots.txt and cache it - if it is changed we fetch it again.
+		\end{enumerate}
+		
+		\item \textbf{Check that not already in frontier}\\
+		The class used to represent the frontier exposes a Contains method, allowing us to test if the frontier already contains a URL.
+		This test is handled by the frontier itself when attempting to add a URL to the frontier.
+		\item \textbf{Add to frontier if passing tests}
+		The URL is added to the frontier if is meets the requirements of the filters described above.
 	\end{enumerate}
 \end{enumerate}
