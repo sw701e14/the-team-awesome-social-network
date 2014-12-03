@@ -1,0 +1,25 @@
+\chapter{Web Crawler}
+We have used this description of the webcrawler from the slides to develop our crawler. Under each step we have described what and why we have done it:
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item \textbf{Begin with initial set of URLs in queue/frontier – “the seed”}\\
+	We have started with a seed of one - where we are sure to find enough URL's to continue.
+	Of Course we could just add more to make sure we have enough URL's to get the crawler to crawl the area of the net we want.
+	
+	\item \textbf{Fetch next page from URL in queue}\\
+	We use a threaded queue to speed up the process of fetching URL's.
+	We use threads to speed up the process.
+	
+	\item \textbf{Parse page}
+	\begin{enumerate}
+		\item Extract text and pass to indexer
+		\item Check if URL has content already seen. If not:\\
+		To check if a URL has content already seen we used hashed shingles(jaccard similarity).
+		We did also implement sketches but calculating them was very slow.
+		
+		\begin{enumerate}
+			\item Add to index
+			\item Extract “link-to” URLs and add to frontier queue
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
